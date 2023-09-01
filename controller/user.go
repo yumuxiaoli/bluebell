@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 
 	"example.com/m/v2/logic"
@@ -31,9 +30,15 @@ func Register(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(p)
 	// 2、业务处理
-	logic.SignUp(p)
+	err := logic.SignUp(p)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code": 404,
+			"msg":  err.Error(),
+		})
+		return
+	}
 	// 3、返回响应
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,

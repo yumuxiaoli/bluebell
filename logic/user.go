@@ -1,16 +1,31 @@
 package logic
 
 import (
+	"time"
+
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/models"
 	"example.com/m/v2/pkg/snowflake"
 )
 
-func SignUp(p *models.ParamSignUp) {
+func SignUp(p *models.ParamSignUp) (err error) {
 	// 判断用户是否存在
-	mysql.QueryUserByUserName()
+	err = mysql.CheckUserExist(p.Username)
+	if err != nil {
+		return err
+	}
 	// 生成UUID
-	snowflake.GenID()
+	userID := snowflake.GenID()
+	// 构建一个User实例
+	u := &models.User{
+		UserId:     userID,
+		Username:   p.Username,
+		Password:   p.Password,
+		Email:      p.Email,
+		Gender:     p.Gender,
+		CreateTime: time.Now(),
+		UpdateTime: time.Now(),
+	}
 	// 保存数据库
-	mysql.InsertUser()
+	return mysql.InsertUser(u)
 }
