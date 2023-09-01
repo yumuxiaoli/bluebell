@@ -51,7 +51,12 @@ func main() {
 	}
 	// 5、注册路由
 	r := routes.Setup()
-
+	r.SetTrustedProxies([]string{"127.0.0.1"})
+	err := r.Run(fmt.Sprintf(":%s", settings.Conf.Port))
+	if err != nil {
+		log.Fatal("run server failed,err:", zap.Error(err))
+		return
+	}
 	// 6、启动服务(优雅关机)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
