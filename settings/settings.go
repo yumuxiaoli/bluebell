@@ -15,6 +15,8 @@ type AppConfig struct {
 	Mode         string `mapstructure:"mode"`
 	Port         string `mapstructure:"port"`
 	Version      string `mapstructure:"version"`
+	StartTime    string `mapstructure:"start_time"`
+	MachineID    int64  `mapstructure:"machine_id"`
 	*LogConfig   `mapstructure:"log"`
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
@@ -48,7 +50,7 @@ type RedisConfig struct {
 
 func Init() (err error) {
 	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
+	// viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
 	err = viper.ReadInConfig()
 	if err != nil {
@@ -64,6 +66,9 @@ func Init() (err error) {
 	viper.WatchConfig()
 	viper.OnConfigChange(func(in fsnotify.Event) {
 		log.Fatalf("配置文件已修改")
+		if err := viper.Unmarshal(Conf); err != nil {
+			fmt.Println("viper.Unmarshal faild:", err)
+		}
 	})
-	return nil
+	return
 }

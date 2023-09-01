@@ -13,6 +13,7 @@ import (
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/dao/redis"
 	"example.com/m/v2/logger"
+	"example.com/m/v2/pkg/snowflake"
 	"example.com/m/v2/routes"
 	"example.com/m/v2/settings"
 	"github.com/spf13/viper"
@@ -40,12 +41,18 @@ func main() {
 	defer mysql.Close()
 	// 4、初始化Redis连接
 	if err := redis.Init(settings.Conf.RedisConfig); err != nil {
-		log.Fatalf("load config failed,err:%v\n", err)
+		log.Fatal("load config failed,err:", zap.Error(err))
 		return
 	}
 	defer redis.Close()
+	fmt.Println(settings.Conf.Name)
+	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil {
+		log.Fatal("load config failed,err:", zap.Error(err))
+		return
+	}
 	// 5、注册路由
 	r := routes.Setup()
+
 	// 6、启动服务(优雅关机)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),

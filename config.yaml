@@ -1,9 +1,9 @@
-app:
-  name: "bluebell"
-  mode: "dev"
-  port: 8081
-  version: "v.1.0"
-
+name: "bluebell"
+mode: "dev"
+port: 8081
+version: "v.1.0"
+start_time: "2023-08-31"
+machine_id: 1
 log:
   level: "debug"
   filename: "bluebell.log"
@@ -19,6 +19,7 @@ mysql:
   dbname: "bluebell"
   max_open_conns: 200
   max_idle_conns: 50
+
 redis:
   host: "127.0.0.1"
   port: 6379
