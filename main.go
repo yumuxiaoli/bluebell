@@ -56,7 +56,7 @@ func main() {
 		return
 	}
 	// 5、注册路由
-	r := routes.Setup()
+	r := routes.Setup(settings.Conf.Mode)
 	r.SetTrustedProxies([]string{"127.0.0.1"})
 	err := r.Run(fmt.Sprintf(":%s", settings.Conf.Port))
 	if err != nil {
