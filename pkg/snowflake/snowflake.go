@@ -1,7 +1,6 @@
 package snowflake
 
 import (
-	"fmt"
 	"time"
 
 	sf "github.com/bwmarrin/snowflake"
@@ -11,7 +10,6 @@ var node *sf.Node
 
 func Init(startTime string, machineID int64) (err error) {
 	var st time.Time
-	fmt.Println("==========\n", startTime, machineID, "\n=============")
 	st, err = time.Parse("2006-01-02", startTime)
 	if err != nil {
 		return

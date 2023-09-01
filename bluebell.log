@@ -23,3 +23,6 @@
 {"level":"DEBUG","time":"2023-09-01T11:56:50.872+0800","caller":"bluebell/main.go:35","msg":"logger init success..."}
 {"level":"INFO","time":"2023-09-01T13:46:49.748+0800","caller":"bluebell/main.go:76","msg":"Shutdown Server ..."}
 {"level":"INFO","time":"2023-09-01T13:46:49.748+0800","caller":"bluebell/main.go:85","msg":"Server exiting"}
+{"level":"DEBUG","time":"2023-09-01T13:52:45.882+0800","caller":"bluebell/main.go:35","msg":"logger init success..."}
+{"level":"INFO","time":"2023-09-01T13:53:02.605+0800","caller":"bluebell/main.go:75","msg":"Shutdown Server ..."}
+{"level":"INFO","time":"2023-09-01T13:53:02.605+0800","caller":"bluebell/main.go:84","msg":"Server exiting"}

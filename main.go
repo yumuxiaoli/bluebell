@@ -45,7 +45,6 @@ func main() {
 		return
 	}
 	defer redis.Close()
-	fmt.Println(settings.Conf.Name)
 	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil {
 		log.Fatal("load config failed,err:", zap.Error(err))
 		return
