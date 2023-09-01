@@ -10,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"example.com/m/v2/controller"
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/dao/redis"
 	"example.com/m/v2/logger"
@@ -47,6 +48,11 @@ func main() {
 	defer redis.Close()
 	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil {
 		log.Fatal("load config failed,err:", zap.Error(err))
+		return
+	}
+	// 初始化gin框架内置的翻译器
+	if err := controller.InitTrans("zh"); err != nil {
+		zap.L().Fatal("init validator trans failed", zap.Error(err))
 		return
 	}
 	// 5、注册路由
