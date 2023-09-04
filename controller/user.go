@@ -1,8 +1,9 @@
 package controller
 
 import (
-	"net/http"
+	"errors"
 
+	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/logic"
 	"example.com/m/v2/models"
 	"github.com/gin-gonic/gin"
@@ -19,31 +20,25 @@ func Register(c *gin.Context) {
 		zap.L().Error("SignUp with invalid param", zap.Error(err))
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
-			c.JSON(http.StatusOK, gin.H{
-				"msg": err.Error(),
-			})
+			ResponseError(c, CodeInvalidParam)
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{
-			"code": 404,
-			"msg":  removeTopStruct(errs.Translate(trans)),
-		})
+		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 	// 业务处理
 	err := logic.SignUp(p)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"code": 404,
-			"msg":  err.Error(),
-		})
+		zap.L().Error("logic.resgister failed", zap.Error(err))
+		if errors.Is(err, mysql.ErrorUserExist) {
+			ResponseError(c, CodeUserExist)
+			return
+		}
+		ResponseError(c, CodeServerBusy)
 		return
 	}
 	// 返回响应
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "success",
-	})
+	ResponseSuccess(c, CodeSuccess)
 }
 
 func Login(c *gin.Context) {
@@ -54,29 +49,22 @@ func Login(c *gin.Context) {
 		zap.L().Error("Login with invalid param", zap.Error(err))
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
-			c.JSON(http.StatusOK, gin.H{
-				"msg": err.Error(),
-			})
+			ResponseError(c, CodeInvalidParam)
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{
-			"code": 404,
-			"msg":  removeTopStruct(errs.Translate(trans)),
-		})
+		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 	// 业务逻辑处理
 	if err := logic.Login(p); err != nil {
 		zap.L().Error("logic.Login failed:", zap.Error(err))
-		c.JSON(http.StatusOK, gin.H{
-			"code": 404,
-			"msg":  "用户名或密码错误",
-		})
+		if errors.Is(err, mysql.ErrorUserNotExist) {
+			ResponseError(c, CodeUserNotExist)
+			return
+		}
+		ResponseError(c, CodeInvalidPassword)
 		return
 	}
 	// 返回响应
-	c.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "登录成功",
-	})
+	ResponseSuccess(c, CodeSuccess)
 }

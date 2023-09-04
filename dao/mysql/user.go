@@ -9,6 +9,11 @@ import (
 )
 
 var secret string = "2816083598"
+var (
+	ErrorUserExist       = errors.New("用户已存在")
+	ErrorUserNotExist    = errors.New("用户不存在")
+	ErrorInvalidPassword = errors.New("密码错误")
+)
 
 // 根据username查询数据
 func CheckUserExist(username string) (err error) {
@@ -18,7 +23,7 @@ func CheckUserExist(username string) (err error) {
 		return err
 	}
 	if user.UserId != 0 {
-		return errors.New("用户已存在")
+		return ErrorUserExist
 	}
 	return nil
 }
@@ -44,12 +49,12 @@ func Login(p *models.ParamLogin) (err error) {
 		return err
 	}
 	if user.UserId == 0 {
-		return errors.New("用户不存在")
+		return ErrorUserNotExist
 	}
 	// 判断密码是否争取
 	password := encryptPassword(p.Password)
 	if password != user.Password {
-		return errors.New("密码错误")
+		return ErrorInvalidPassword
 	}
 	return
 }
