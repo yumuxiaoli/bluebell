@@ -5,6 +5,7 @@ import (
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/logger"
+	"example.com/m/v2/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,15 +24,13 @@ func Setup(mode string) *gin.Engine {
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "ok")
 	})
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "success",
-		})
+	r.GET("/ping", middleware.JWTAuthMiddleware(), func(c *gin.Context) {
+		//如果是登录用户,判断请求头中是否有 有效的JWT ？
+		c.String(http.StatusOK, "pong")
 	})
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"code": 200,
+			"code": 404,
 			"msg":  "not found",
 		})
 	})

@@ -5,6 +5,7 @@ import (
 
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/models"
+	"example.com/m/v2/pkg/jwt"
 	"example.com/m/v2/pkg/snowflake"
 )
 
@@ -30,10 +31,16 @@ func SignUp(p *models.ParamSignUp) (err error) {
 	return mysql.InsertUser(u)
 }
 
-func Login(p *models.ParamLogin) error {
+func Login(p *models.ParamLogin) (token string, err error) {
 	user := &models.ParamLogin{
 		Username: p.Username,
 		Password: p.Password,
 	}
-	return mysql.Login(user)
+	// 传递的是指针，就能拿到user.UserID
+	u, err := mysql.Login(user)
+	if err != nil {
+		return "", err
+	}
+	// 生成JWT
+	return jwt.GenToken(u.UserId, u.Username)
 }

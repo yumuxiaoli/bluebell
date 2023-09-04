@@ -42,19 +42,18 @@ func encryptPassword(password string) string {
 	return hex.EncodeToString(h.Sum([]byte(password)))
 }
 
-func Login(p *models.ParamLogin) (err error) {
-	var user models.User
+func Login(p *models.ParamLogin) (user models.User, err error) {
 	err = DB.Where("username = ?", p.Username).Find(&user).Error
 	if err != nil {
-		return err
+		return user, err
 	}
 	if user.UserId == 0 {
-		return ErrorUserNotExist
+		return user, ErrorUserNotExist
 	}
 	// 判断密码是否争取
 	password := encryptPassword(p.Password)
 	if password != user.Password {
-		return ErrorInvalidPassword
+		return user, ErrorInvalidPassword
 	}
-	return
+	return user, nil
 }

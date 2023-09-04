@@ -151,3 +151,44 @@
 {"level":"ERROR","time":"2023-09-04T13:51:45.116+0800","caller":"controller/user.go:72","msg":"logic.Login failed:","error":"密码错误"}
 {"level":"INFO","time":"2023-09-04T13:51:45.117+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0816143}
 {"level":"INFO","time":"2023-09-04T13:51:56.727+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0950471}
+{"level":"DEBUG","time":"2023-09-04T13:59:30.491+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"INFO","time":"2023-09-04T14:00:02.775+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0655746}
+{"level":"DEBUG","time":"2023-09-04T15:17:34.073+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"INFO","time":"2023-09-04T15:17:48.133+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0414376}
+{"level":"DEBUG","time":"2023-09-04T16:39:11.648+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:39:58.510+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:39:58.512+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0367981}
+{"level":"ERROR","time":"2023-09-04T16:40:13.340+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"密码错误"}
+{"level":"INFO","time":"2023-09-04T16:40:13.341+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0391689}
+{"level":"ERROR","time":"2023-09-04T16:40:21.923+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:40:21.925+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.032317}
+{"level":"DEBUG","time":"2023-09-04T16:43:16.338+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:43:38.312+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:43:38.313+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0297644}
+{"level":"DEBUG","time":"2023-09-04T16:44:24.954+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:44:32.908+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:44:32.908+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0317983}
+{"level":"DEBUG","time":"2023-09-04T16:45:59.987+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:46:12.447+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:46:12.447+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0227432}
+{"level":"DEBUG","time":"2023-09-04T16:47:51.035+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:48:01.262+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:48:01.262+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0332416}
+{"level":"DEBUG","time":"2023-09-04T16:49:03.908+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:49:18.153+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:49:18.154+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0303826}
+{"level":"ERROR","time":"2023-09-04T16:49:35.374+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:49:35.376+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0580942}
+{"level":"DEBUG","time":"2023-09-04T16:50:59.418+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:51:12.428+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:51:12.428+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0277737}
+{"level":"DEBUG","time":"2023-09-04T16:54:23.811+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:54:39.296+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:54:39.297+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0262869}
+{"level":"DEBUG","time":"2023-09-04T16:55:19.629+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"ERROR","time":"2023-09-04T16:55:37.425+0800","caller":"controller/user.go:61","msg":"logic.Login failed:","error":"key is of invalid type"}
+{"level":"INFO","time":"2023-09-04T16:55:37.426+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0317435}
+{"level":"DEBUG","time":"2023-09-04T16:58:57.700+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"INFO","time":"2023-09-04T16:59:08.934+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0345248}
+{"level":"DEBUG","time":"2023-09-04T19:19:26.114+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-04T19:21:17.658+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
