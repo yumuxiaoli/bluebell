@@ -36,3 +36,20 @@ func encryptPassword(password string) string {
 	h.Write([]byte(secret))
 	return hex.EncodeToString(h.Sum([]byte(password)))
 }
+
+func Login(p *models.ParamLogin) (err error) {
+	var user models.User
+	err = DB.Where("username = ?", p.Username).Find(&user).Error
+	if err != nil {
+		return err
+	}
+	if user.UserId == 0 {
+		return errors.New("用户不存在")
+	}
+	// 判断密码是否争取
+	password := encryptPassword(p.Password)
+	if password != user.Password {
+		return errors.New("密码错误")
+	}
+	return
+}
