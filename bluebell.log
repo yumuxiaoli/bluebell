@@ -192,3 +192,5 @@
 {"level":"INFO","time":"2023-09-04T16:59:08.934+0800","caller":"logger/logger.go:80","msg":"/login","status":200,"method":"POST","path":"/login","query":"","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.0345248}
 {"level":"DEBUG","time":"2023-09-04T19:19:26.114+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
 {"level":"DEBUG","time":"2023-09-04T19:21:17.658+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-05T10:44:32.370+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-05T10:45:36.341+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
