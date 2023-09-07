@@ -5,6 +5,10 @@ import (
 	"example.com/m/v2/models"
 )
 
-func GetCommunityList() (data []*models.Community, err error) {
+func GetCommunityList() ([]*models.Community, error) {
 	return mysql.GetCommunityList()
+}
+
+func GetCommunityDetail(id int64) (*models.Community, error) {
+	return mysql.GetCommunityDetailByID(id)
 }
