@@ -15,7 +15,7 @@ var (
 	ErrorInvalidPassword = errors.New("密码错误")
 )
 
-// 根据username查询数据
+// CheckUserExist 检查用户是否存在
 func CheckUserExist(username string) (err error) {
 	var user *models.User
 	err = DB.Where("username = ?", username).Find(&user).Error
@@ -36,6 +36,7 @@ func InsertUser(user *models.User) (err error) {
 	return err
 }
 
+// encryptPassword 密码加密
 func encryptPassword(password string) string {
 	h := md5.New()
 	h.Write([]byte(secret))
@@ -56,4 +57,10 @@ func Login(p *models.ParamLogin) (user models.User, err error) {
 		return user, ErrorInvalidPassword
 	}
 	return user, nil
+}
+
+// GetUserById 根据id获取用户信息
+func GetUserById(uid int64) (user *models.User, err error) {
+	err = DB.Find(&user).Where("user_id = ?", uid).Error
+	return
 }

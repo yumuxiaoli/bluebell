@@ -15,3 +15,10 @@ type Post struct {
 func (Post) TableName() string {
 	return "post"
 }
+
+// ApiPostDetail 帖子详情接口的结构体
+type ApiPostDetail struct {
+	AuthorName string
+	*Post                         // 嵌入帖子结构体
+	*Community `json:"community"` // 嵌入社区信息
+}

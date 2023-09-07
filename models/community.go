@@ -14,3 +14,8 @@ type Community struct {
 func (Community) TableName() string {
 	return "community"
 }
+
+type ResCommunity struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
