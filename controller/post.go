@@ -55,3 +55,28 @@ func GetPostDetail(c *gin.Context) {
 	// 返回响应
 	ResponseSuccess(c, data)
 }
+
+// 获得帖子列表的处理函数
+func GetPostList(c *gin.Context) {
+	// 获取分页参数
+	offsetStr := c.Query("page")
+	limitStr := c.Query("size")
+
+	page, err := strconv.ParseInt(offsetStr, 10, 64)
+	if err != nil {
+		page = 0
+	}
+	size, err := strconv.ParseInt(limitStr, 10, 64)
+	if err != nil {
+		size = 10
+	}
+	// 获取数据
+	data, err := logic.GetPostList(page, size)
+	if err != nil {
+		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	// 返回响应
+	ResponseSuccess(c, data)
+}

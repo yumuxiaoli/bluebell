@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Post struct {
-	ID          int64     `json:"post_id"`
+	PostID      int64     `json:"post_id"`
 	Title       string    `json:"title" binding:"required"`
 	Content     string    `json:"content" binding:"required"`
 	AuthorID    int64     `json:"author_id"`
