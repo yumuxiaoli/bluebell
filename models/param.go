@@ -16,3 +16,8 @@ type ParamLogin struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+
+type ResCommunity struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}

@@ -11,6 +11,9 @@ log:
   max_age: 30
   max_backups: 7
 
+auth:
+  jwt_expire: 8760
+  
 mysql:
   host: "127.0.0.1"
   port: 3306
@@ -21,8 +24,8 @@ mysql:
   max_idle_conns: 50
 
 redis:
-  host: "127.0.0.1"
-  port: 6379
+  host: "8.130.66.151"
+  port: 9000
   password: ""
   db: 0
   pool_size: 100
