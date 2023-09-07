@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"strconv"
+
 	"example.com/m/v2/logic"
 	"example.com/m/v2/models"
 	"github.com/gin-gonic/gin"
@@ -31,4 +33,25 @@ func CreatePost(c *gin.Context) {
 	}
 	// 3.返回响应
 	ResponseSuccess(c, nil)
+}
+
+// GetPostDetail 获取帖子详情的处理函数
+func GetPostDetail(c *gin.Context) {
+	// 获取参数
+	pidStr := c.Param("id")
+	pid, err := strconv.ParseInt(pidStr, 10, 64)
+	if err != nil {
+		zap.L().Error("get post detail with invalid param", zap.Error(err))
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	// 根据id去除帖子数据(查数据库)
+	data, err := logic.GetPostById(pid)
+	if err != nil {
+		zap.L().Error("logic.GetPostById(pid) failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	// 返回响应
+	ResponseSuccess(c, data)
 }

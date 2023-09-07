@@ -16,3 +16,8 @@ func CreatePost(p *models.Post) (err error) {
 	return mysql.CreatePost(p)
 	// 返回
 }
+
+// GetPostById 根据帖子id查询帖子详情数据
+func GetPostById(pid int64) (data *models.Post, err error) {
+	return mysql.GetPostById(pid)
+}
