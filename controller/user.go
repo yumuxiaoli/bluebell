@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/logic"
@@ -56,7 +57,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	// 业务逻辑处理
-	token, err := logic.Login(p)
+	data, err := logic.Login(p)
 	if err != nil {
 		zap.L().Error("logic.Login failed:", zap.Error(err))
 		if errors.Is(err, mysql.ErrorUserNotExist) {
@@ -67,5 +68,9 @@ func Login(c *gin.Context) {
 		return
 	}
 	// 返回响应
-	ResponseSuccess(c, token)
+	ResponseSuccess(c, gin.H{
+		"accessToken": data.AccessToken,
+		"username":    data.Username,
+		"userID":      fmt.Sprintf("%d", data.UserID),
+	})
 }

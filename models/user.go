@@ -16,3 +16,9 @@ type User struct {
 func (User) TableName() string {
 	return "user"
 }
+
+type ResData struct {
+	UserID      int64  `json:"userID,string"`
+	Username    string `json:"username"`
+	AccessToken string `json:"accessToken"`
+}

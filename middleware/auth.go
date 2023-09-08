@@ -21,7 +21,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
-
+		fmt.Println(authHeader)
 		pants := strings.SplitN(authHeader, " ", 2)
 		pants[0] = strings.Replace(pants[0], " ", "", -1)
 		pants[1] = strings.Replace(pants[1], " ", "", -1)
