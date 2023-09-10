@@ -12,6 +12,7 @@ func GetPostIDsInOrder(p *models.ParamPostList) ([]string, error) {
 	// 确定查询的索引起始点
 	start := (p.Page - 1) * p.Page
 	end := start + p.Size - 1
+
 	// ZREVRANGE 按分数从大到小的顺序查询指定数量的元素
 	return rdb.ZRevRange(key, start, end).Result()
 }
