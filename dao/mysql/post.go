@@ -23,6 +23,6 @@ func GetPostList(page, size int64) (post []*models.Post, err error) {
 
 // 根据给定的id列表查询帖子数据
 func GetPostByIDs(ids []string) (postList []*models.Post, err error) {
-	err = DB.Where("id in ids").Find(&postList).Error
+	err = DB.Where("post_id in (?)", ids).Order("FIND_IN_SET(post_id,{{ids}})").Find(&postList).Error
 	return
 }

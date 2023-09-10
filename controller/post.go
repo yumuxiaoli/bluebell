@@ -88,7 +88,7 @@ func GetPostList2(c *gin.Context) {
 	// 获取分页参数
 
 	// 初始化结构体参数时指定初始承诺书
-	p := models.ParamPostList{
+	p := &models.ParamPostList{
 		Page:  1,
 		Size:  10,
 		Order: models.OrderTime,
@@ -100,20 +100,8 @@ func GetPostList2(c *gin.Context) {
 		return
 	}
 
-	// ShouldBindJSON() 如果请求中带的时json类型的参数，才是用此类型
-	offsetStr := c.Query("page")
-	limitStr := c.Query("size")
-
-	page, err := strconv.ParseInt(offsetStr, 10, 64)
-	if err != nil {
-		page = 0
-	}
-	size, err := strconv.ParseInt(limitStr, 10, 64)
-	if err != nil {
-		size = 10
-	}
 	// 获取数据
-	data, err := logic.GetPostList(page, size)
+	data, err := logic.GetPostList2(p)
 	if err != nil {
 		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
 		ResponseError(c, CodeServerBusy)
