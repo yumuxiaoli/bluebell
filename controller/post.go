@@ -107,6 +107,7 @@ func GetPostList2(c *gin.Context) {
 		ResponseError(c, CodeServerBusy)
 		return
 	}
+
 	// 返回响应
 	ResponseSuccess(c, data)
 }
