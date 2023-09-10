@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"strings"
 
 	"example.com/m/v2/controller"
@@ -21,7 +20,6 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
-		fmt.Println(authHeader)
 		pants := strings.SplitN(authHeader, " ", 2)
 		pants[0] = strings.Replace(pants[0], " ", "", -1)
 		pants[1] = strings.Replace(pants[1], " ", "", -1)
@@ -34,7 +32,6 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 
 		// parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
 		mc, err := jwt.ParseToken(pants[1])
-		fmt.Println(mc)
 		if err != nil {
 			controller.ResponseError(c, controller.CodeInvalidToken)
 			c.Abort()

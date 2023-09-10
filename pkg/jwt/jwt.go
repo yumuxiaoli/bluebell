@@ -2,14 +2,13 @@ package jwt
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/spf13/viper"
 )
 
-var TokenInvalidError = errors.New("invalid token")
+var TokenError = errors.New("invalid token")
 var MySecret = []byte("这是一个盐值")
 
 // MyClaims 自定义声明结构体并内嵌jwt.StandardClaims
@@ -47,15 +46,13 @@ func ParseToken(tokenString string) (*MyClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, mc, func(token *jwt.Token) (i interface{}, err error) {
 		return MySecret, nil
 	})
-	fmt.Println(err)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(token.Valid)
 	if token.Valid { // 校验token
 		return mc, nil
 	}
-	return nil, errors.New("invalid token")
+	return nil, TokenError
 }
 
 // // GenToken 生成access token 和 refresh token
