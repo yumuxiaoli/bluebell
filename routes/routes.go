@@ -13,6 +13,7 @@ import (
 	gs "github.com/swaggo/gin-swagger"
 
 	_ "example.com/m/v2/docs"
+	"github.com/gin-contrib/pprof"
 )
 
 func Setup(mode string) *gin.Engine {
@@ -50,6 +51,8 @@ func Setup(mode string) *gin.Engine {
 		//如果是登录用户,判断请求头中是否有 有效的JWT ？
 		c.String(http.StatusOK, "pong")
 	})
+	pprof.Register(r) // 注册pprof相关路径
+
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"code": 404,
