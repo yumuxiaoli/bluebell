@@ -2,7 +2,6 @@ package routes
 
 import (
 	"net/http"
-	"time"
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/logger"
@@ -22,7 +21,13 @@ func Setup(mode string) *gin.Engine {
 	}
 
 	r := gin.New()
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middleware.RateLimitMiddleware(time.Second*2, 1))
+	// r.Use(logger.GinLogger(), logger.GinRecovery(true), middleware.RateLimitMiddleware(time.Second*2, 1))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+	r.LoadHTMLFiles("./templates/index.html")
+	r.Static("/static", "./static")
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 
 	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
@@ -30,6 +35,8 @@ func Setup(mode string) *gin.Engine {
 	// 注册业务路由
 	v1.POST("/register", controller.Register)
 	v1.POST("/login", controller.Login)
+
+	v1.GET("/posts", controller.GetPostList)
 
 	v1.Use(middleware.JWTAuthMiddleware()) // 认证中间件
 	{
@@ -39,14 +46,10 @@ func Setup(mode string) *gin.Engine {
 		v1.POST("/post", controller.CreatePost)
 		v1.GET("/post/:id", controller.GetPostDetail)
 		// v1.GET("/posts/", controller.GetPostList)
-		v1.GET("/posts", controller.GetPostList)
 
 		v1.POST("/vote", controller.PostVoteControl)
 	}
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "ok")
-	})
 	r.GET("/ping", func(c *gin.Context) {
 		//如果是登录用户,判断请求头中是否有 有效的JWT ？
 		c.String(http.StatusOK, "pong")
