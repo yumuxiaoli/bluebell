@@ -18,7 +18,8 @@ func (Post) TableName() string {
 
 // ApiPostDetail 帖子详情接口的结构体
 type ApiPostDetail struct {
-	AuthorName string
+	AuthorName string             `josn:"author_name"`
+	VoteNum    int64              `json:"vote_num"`
 	*Post                         // 嵌入帖子结构体
 	*Community `json:"community"` // 嵌入社区信息
 }
