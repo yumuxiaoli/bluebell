@@ -15,11 +15,11 @@ func CreatePost(p *models.Post) (err error) {
 	p.PostID = snowflake.GenID()
 	p.CreateTime = time.Now()
 	// 保存到数据库
-	err = redis.CreatePost(p.PostID)
+	err = mysql.CreatePost(p)
 	if err != nil {
 		return
 	}
-	return mysql.CreatePost(p)
+	return redis.CreatePost(p.PostID, p.CommunityID)
 	// 返回
 }
 
@@ -131,6 +131,71 @@ func GetPostList2(p *models.ParamPostList) (data []*models.ApiPostDetail, err er
 			Community:  community,
 		}
 		data = append(data, postdetail)
+	}
+	return
+}
+
+func GetCommunityPostList(p *models.ParamPostList) (data []*models.ApiPostDetail, err error) {
+	// 去redis查询id列表
+	ids, err := redis.GetCommunityPostIDsInOrder(p)
+	if err != nil {
+		return
+	}
+	if len(ids) == 0 {
+		zap.L().Warn("redis.GetCommunityPostIDsInOrder(p) return 0 data")
+		return
+	}
+	// 根据id去数据库查询帖子详细信息
+	posts, err := mysql.GetPostByIDs(ids)
+	if err != nil {
+		return
+	}
+	// 提前查询好每篇投票数
+	voteData, err := redis.GetPostVoteData(ids)
+	if err != nil {
+		return nil, err
+	}
+	// 将帖子的作者及分区新查询出来填充到帖子中
+	for idx, post := range posts {
+		// 根据作者id查询作者信息
+		user, err := mysql.GetUserById(post.AuthorID)
+		if err != nil {
+			zap.L().Error("mysql.GetUserById(post.AuthorID) failed",
+				zap.Int64("author_id", post.AuthorID),
+				zap.Error(err))
+			return nil, err
+		}
+		community, err := mysql.GetCommunityDetailByID(post.CommunityID)
+		if err != nil {
+			zap.L().Error("mysql.GetUserById(post.AuthorID) failed",
+				zap.Int64("community_id", post.CommunityID),
+				zap.Error(err))
+			return nil, err
+		}
+		postdetail := &models.ApiPostDetail{
+			AuthorName: user.Username,
+			VoteNum:    voteData[idx],
+			Post:       post,
+			Community:  community,
+		}
+		data = append(data, postdetail)
+	}
+	return
+}
+
+// GetPostListNew 将连个查询接口合二为一
+func GetPostListNew(p *models.ParamPostList) (data []*models.ApiPostDetail, err error) {
+	// 根据请求参数的不同，执行不同的逻辑
+	if p.CommunityID == 0 {
+		// 查所有
+		data, err = GetPostList2(p)
+	} else {
+		// 根据社区id查询
+		data, err = GetCommunityPostList(p)
+	}
+	if err != nil {
+		zap.L().Error("GetPostListNew failed", zap.Error(err))
+		return nil, err
 	}
 	return
 }

@@ -9,6 +9,7 @@ const (
 	KeyPostTime        = "post:time"   // zset;帖子及发帖时间
 	KeyPostScore       = "post:score"  // zset;帖子及投票的分数
 	KeyPostVotedPrefix = "post:woted:" // zset;记录用户及投票的类型
+	KeyCommunityPrefix = "community:"  // set;储存每个分区下
 )
 
 // 给redis key加上前缀

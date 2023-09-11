@@ -748,3 +748,11 @@
 {"level":"DEBUG","time":"2023-09-11T09:17:21.112+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
 {"level":"DEBUG","time":"2023-09-11T09:21:35.599+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
 {"level":"INFO","time":"2023-09-11T09:22:16.102+0800","caller":"logger/logger.go:80","msg":"/api/v1/posts2/","status":200,"method":"GET","path":"/api/v1/posts2/","query":"page=1&size=1&order=Time","ip":"127.0.0.1","user-agent":"Apifox/1.0.0 (https://apifox.com)","method":"","cost":0.2191169}
+{"level":"DEBUG","time":"2023-09-11T10:26:59.823+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:43:04.385+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:43:51.599+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:46:08.790+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:46:21.049+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:46:56.999+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:48:17.460+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
+{"level":"DEBUG","time":"2023-09-11T10:48:17.508+0800","caller":"bluebell/main.go:36","msg":"logger init success..."}
