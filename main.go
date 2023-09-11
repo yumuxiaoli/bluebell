@@ -21,6 +21,15 @@ import (
 	"go.uber.org/zap"
 )
 
+// @title bluebell
+// @version 1.0
+// @description 博客+投票项目
+
+// @contact.name lidejun
+// @contact.url https://github.com/yumuxiaoli/bluebell
+// @contact.emali 2816083598@qq.com
+
+// @host 127.0.0.1:8080/api/v1
 func main() {
 	// 1、加载配置
 	if err := settings.Init(); err != nil {

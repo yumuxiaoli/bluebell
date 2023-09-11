@@ -1,0 +1,14 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "博客+投票项目",
+        "title": "bluebell",
+        "contact": {
+            "name": "lidejun",
+            "url": "https://github.com/yumuxiaoli/bluebell"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:8084/api/v1",
+    "paths": {}
+}

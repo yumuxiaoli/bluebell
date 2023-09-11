@@ -7,6 +7,11 @@ import (
 	"example.com/m/v2/logger"
 	"example.com/m/v2/middleware"
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	gs "github.com/swaggo/gin-swagger"
+
+	_ "example.com/m/v2/docs"
 )
 
 func Setup(mode string) *gin.Engine {
@@ -16,6 +21,8 @@ func Setup(mode string) *gin.Engine {
 
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
 	v1 := r.Group("/api/v1")
 	// 注册业务路由
