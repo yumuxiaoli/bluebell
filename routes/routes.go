@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"time"
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/logger"
@@ -20,7 +21,7 @@ func Setup(mode string) *gin.Engine {
 	}
 
 	r := gin.New()
-	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middleware.RateLimitMiddleware(time.Second*2, 1))
 
 	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
