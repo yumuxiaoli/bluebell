@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 
@@ -22,7 +23,7 @@ func GetPostIDsInOrder(p *models.ParamPostList) ([]string, error) {
 	if p.Order == models.OrderScore {
 		key = getRedisKey(KeyPostScore)
 	}
-
+	fmt.Println("======================\n", p.Order, "==", key)
 	return getIDsFormKey(key, p.Page, p.Size)
 }
 
@@ -59,6 +60,7 @@ func GetCommunityPostIDsInOrder(p *models.ParamPostList) ([]string, error) {
 	if p.Order == models.OrderScore {
 		orderKey = getRedisKey(KeyPostScore)
 	}
+	fmt.Println("======================\n", p.Order, "==", orderKey)
 	// 使用zinterstore 把分区的帖子set余帖子分数的zset 生成一个新zset
 	// 针对新的zset 按之前的梁洛级取数据
 

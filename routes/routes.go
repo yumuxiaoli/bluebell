@@ -39,7 +39,7 @@ func Setup(mode string) *gin.Engine {
 		v1.POST("/post", controller.CreatePost)
 		v1.GET("/post/:id", controller.GetPostDetail)
 		// v1.GET("/posts/", controller.GetPostList)
-		v1.GET("/posts/", controller.GetPostList)
+		v1.GET("/posts", controller.GetPostList)
 
 		v1.POST("/vote", controller.PostVoteControl)
 	}

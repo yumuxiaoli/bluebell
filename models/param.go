@@ -25,14 +25,14 @@ type ParamLogin struct {
 // ParamVoteData 投票数据
 type ParamVoteData struct {
 	//UserID
-	PostID    string `json:"post_id,string" binding:"required"`       // 帖子id
+	PostID    string `json:"post_id" binding:"required"`              // 帖子id
 	Direction int8   `json:"direction,string" binding:"oneof=1 0 -1"` // 赞成票(1)反对票(-1)
 }
 
 // ParamPostList 获取帖子列表query string参数
 type ParamPostList struct {
-	Page        int64  `json:"page"`
-	Size        int64  `json:"size"`
-	Order       string `json:"order"`
+	Page        int64  `json:"page" from:"page"`
+	Size        int64  `json:"size" from:"size"`
+	Order       string `json:"order" from:"order"`
 	CommunityID int64  `json:"community_id" form:"community_id"` // 可以为空
 }

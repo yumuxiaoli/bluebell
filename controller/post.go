@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"strconv"
 
 	"example.com/m/v2/logic"
@@ -88,17 +89,17 @@ func GetPostList(c *gin.Context) {
 
 	// 初始化结构体参数时指定初始承诺书
 	p := &models.ParamPostList{
-		Page:  1,
+		Page:  0,
 		Size:  10,
 		Order: models.OrderTime,
 	}
-
-	if err := c.ShouldBindQuery(p); err != nil {
-		zap.L().Error("GetPostList with invalid params", zap.Error(err))
-		ResponseError(c, CodeInvalidParam)
-		return
+	var err error
+	p.Page, err = strconv.ParseInt(c.Query("page"), 10, 64)
+	if err != nil {
+		p.Page = 0
 	}
-
+	p.Order = c.Query("order")
+	fmt.Println("---------------------\n", p)
 	// 获取数据
 	data, err := logic.GetPostListNew(p)
 	if err != nil {
