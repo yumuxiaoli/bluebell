@@ -21,7 +21,9 @@ COPY . .
 # 将我们的代码编译成二进制可执行文字 bluebell
 RUN go build -o bluebell .
 
-FROM scratch
+FROM debian:stretch-slim
+
+COPY  ./wait-for.sh /
 COPY ./templates /templates
 COPY ./static /static
 COPY ./conf /conf
@@ -30,9 +32,15 @@ WORKDIR /
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/bluebell /
 
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -v \
+        --no-install-recommends netcat; \
+        chmod 755 wait-for.sh
+
 # 声明服务端口
 EXPOSE 8081
 
 # 需要运行的命令
-ENTRYPOINT [ "/bluebell","conf/config.yaml" ]
+# ENTRYPOINT [ "/bluebell","conf/config.yaml" ]
 
