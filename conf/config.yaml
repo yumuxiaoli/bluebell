@@ -24,7 +24,7 @@ mysql:
   max_idle_conns: 50
 
 redis:
-  host: "127.0.0.1"
+  host: "47.121.134.40"
   port: 6379
   password: ""
   db: 0

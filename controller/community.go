@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"example.com/m/v2/logic"
+	"example.com/m/v2/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -13,7 +14,7 @@ func Community(c *gin.Context) {
 	data, err := logic.GetCommunityList()
 	if err != nil {
 		zap.L().Error("logic.GetCommunityList() failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 	ResponseSuccess(c, data)
@@ -26,13 +27,13 @@ func CommunityDetail(c *gin.Context) {
 	// 查询到所有的社区，(community_id,community_name)以列表的形式返回
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		ResponseError(c, CodeInvalidParam)
+		ResponseError(c, utils.CodeInvalidParam)
 		return
 	}
 	data, err := logic.GetCommunityDetail(id)
 	if err != nil {
 		zap.L().Error("logic.GetCommunityList() failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 	ResponseSuccess(c, data)

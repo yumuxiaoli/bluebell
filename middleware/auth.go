@@ -5,6 +5,7 @@ import (
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/pkg/jwt"
+	"example.com/m/v2/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +17,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		// 这里的具体实现方式要依据业务情况决定
 		authHeader := c.Request.Header.Get("Authorization")
 		if authHeader == "" {
-			controller.ResponseError(c, controller.CodeNeedLogin)
+			controller.ResponseError(c, utils.CodeNeedLogin)
 			c.Abort()
 			return
 		}
@@ -25,7 +26,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		pants[1] = strings.Replace(pants[1], " ", "", -1)
 
 		if !(len(pants) == 2 && pants[0] == "Bearer") {
-			controller.ResponseError(c, controller.CodeInvalidToken)
+			controller.ResponseError(c, utils.CodeInvalidToken)
 			c.Abort()
 			return
 		}
@@ -33,7 +34,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		// parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
 		mc, err := jwt.ParseToken(pants[1])
 		if err != nil {
-			controller.ResponseError(c, controller.CodeInvalidToken)
+			controller.ResponseError(c, utils.CodeInvalidToken)
 			c.Abort()
 			return
 		}

@@ -7,6 +7,7 @@ import (
 	"example.com/m/v2/dao/mysql"
 	"example.com/m/v2/logic"
 	"example.com/m/v2/models"
+	"example.com/m/v2/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
@@ -21,10 +22,10 @@ func Register(c *gin.Context) {
 		zap.L().Error("SignUp with invalid param", zap.Error(err))
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
-			ResponseError(c, CodeInvalidParam)
+			ResponseError(c, utils.CodeInvalidParam)
 			return
 		}
-		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
+		ResponseErrorWithMsg(c, utils.CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 	// 业务处理
@@ -32,14 +33,14 @@ func Register(c *gin.Context) {
 	if err != nil {
 		zap.L().Error("logic.resgister failed", zap.Error(err))
 		if errors.Is(err, mysql.ErrorUserExist) {
-			ResponseError(c, CodeUserExist)
+			ResponseError(c, utils.CodeUserExist)
 			return
 		}
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 	// 返回响应
-	ResponseSuccess(c, CodeSuccess)
+	ResponseSuccess(c, utils.CodeSuccess)
 }
 
 func Login(c *gin.Context) {
@@ -50,10 +51,10 @@ func Login(c *gin.Context) {
 		zap.L().Error("Login with invalid param", zap.Error(err))
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
-			ResponseError(c, CodeInvalidParam)
+			ResponseError(c, utils.CodeInvalidParam)
 			return
 		}
-		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
+		ResponseErrorWithMsg(c, utils.CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 	// 业务逻辑处理
@@ -61,10 +62,10 @@ func Login(c *gin.Context) {
 	if err != nil {
 		zap.L().Error("logic.Login failed:", zap.Error(err))
 		if errors.Is(err, mysql.ErrorUserNotExist) {
-			ResponseError(c, CodeUserNotExist)
+			ResponseError(c, utils.CodeUserNotExist)
 			return
 		}
-		ResponseError(c, CodeInvalidPassword)
+		ResponseError(c, utils.CodeInvalidPassword)
 		return
 	}
 	// 返回响应

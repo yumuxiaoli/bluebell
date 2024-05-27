@@ -1,4 +1,4 @@
-package controller
+package text
 
 import (
 	"bytes"
@@ -6,6 +6,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"example.com/m/v2/controller"
+	"example.com/m/v2/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +18,7 @@ func TestCreatePost(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
 	url := "api/v1/post"
-	r.POST(url, CreatePost)
+	r.POST(url, controller.CreatePost)
 
 	body := `{
 		"community_id":1,
@@ -31,9 +34,9 @@ func TestCreatePost(t *testing.T) {
 
 	// assert.Contains(t, w.Body.String(), "需要登录")
 
-	res := new(ResponseData)
+	res := new(controller.ResponseData)
 	if err := json.Unmarshal(w.Body.Bytes(), res); err != nil {
 		t.Fatalf("json.Unmarshal w.Body failed,err:%v\n", err)
 	}
-	assert.Equal(t, res.Code, CodeNeedLogin)
+	assert.Equal(t, res.Code, utils.CodeNeedLogin)
 }

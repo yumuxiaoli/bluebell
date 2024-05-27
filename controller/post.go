@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"fmt"
 	"strconv"
 
 	"example.com/m/v2/logic"
 	"example.com/m/v2/models"
+	"example.com/m/v2/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -16,20 +16,20 @@ func CreatePost(c *gin.Context) {
 	if err := c.ShouldBindJSON(p); err != nil {
 		zap.L().Debug("c.ShouldBindJSON(p) error", zap.Any("err", err))
 		zap.L().Error("create post with invalid param")
-		ResponseError(c, CodeInvalidParam)
+		ResponseError(c, utils.CodeInvalidParam)
 		return
 	}
 	// 从c取到当前发送的用户的id
 	userID, err := GetCurrentUserID(c)
 	if err != nil {
-		ResponseError(c, CodeNeedLogin)
+		ResponseError(c, utils.CodeNeedLogin)
 		return
 	}
 	p.AuthorID = userID
 	// 2.创建帖子
 	if err := logic.CreatePost(p); err != nil {
 		zap.L().Error("logic.CreatePost(p) failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 	// 3.返回响应
@@ -43,14 +43,14 @@ func GetPostDetail(c *gin.Context) {
 	pid, err := strconv.ParseInt(pidStr, 10, 64)
 	if err != nil {
 		zap.L().Error("get post detail with invalid param", zap.Error(err))
-		ResponseError(c, CodeInvalidParam)
+		ResponseError(c, utils.CodeInvalidParam)
 		return
 	}
 	// 根据id去除帖子数据(查数据库)
 	data, err := logic.GetPostById(pid)
 	if err != nil {
 		zap.L().Error("logic.GetPostById(pid) failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 	// 返回响应
@@ -99,12 +99,11 @@ func GetPostList(c *gin.Context) {
 		p.Page = 0
 	}
 	p.Order = c.Query("order")
-	fmt.Println("---------------------\n", p)
 	// 获取数据
 	data, err := logic.GetPostListNew(p)
 	if err != nil {
 		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 
@@ -123,7 +122,7 @@ func GetCommunityPostList(c *gin.Context) {
 
 	if err := c.ShouldBindQuery(p); err != nil {
 		zap.L().Error("GetPostCommunityList with invalid params", zap.Error(err))
-		ResponseError(c, CodeInvalidParam)
+		ResponseError(c, utils.CodeInvalidParam)
 		return
 	}
 
@@ -131,7 +130,7 @@ func GetCommunityPostList(c *gin.Context) {
 	data, err := logic.GetPostListNew(p)
 	if err != nil {
 		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
-		ResponseError(c, CodeServerBusy)
+		ResponseError(c, utils.CodeServerBusy)
 		return
 	}
 
