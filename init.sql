@@ -1,7 +1,7 @@
 -- create the database
-create database if not exists blueball;
+create database if not exists bluebell;
 
-use blueball;
+use bluebell;
 
 -- create the table for user
 CREATE TABLE `user`  (
